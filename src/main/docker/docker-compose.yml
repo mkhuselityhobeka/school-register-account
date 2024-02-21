@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+  #database
   mysql:
     image: mysql:latest
     container_name: funda-mysql
@@ -13,6 +14,28 @@ services:
       - "3306:3306"
     networks:
       - funda
+#account register app
+  register-account:
+    env_file: /home/boss/IdeaProjects/register-account/src/main/docker/mysql/.env
+    build:
+      context: /home/boss/IdeaProjects/register-account
+      dockerfile: Dockerfile
+    restart: on-failure
+    container_name: register-account-app
+    depends_on:
+      - mysql
+    volumes:
+      -  /home/boss/IdeaProjects/register-account/src/main/docker/mysql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "8081:8081"
+    environment:
+      - spring.datasource.url=jdbc:mysql://localhost:3306/register-account?useSSL=false
+      - spring.datasource.username=funda
+      - spring.datasource.password=funda123!
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+      - spring.jpa.hibernate.ddl-auto-update
+    expose:
+      - 8081
 networks:
   funda:
     driver: bridge
