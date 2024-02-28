@@ -26,14 +26,14 @@ public class User {
     String password;
     String status;
     @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "user",
+            mappedBy = "id",
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    @ToString.Exclude
+    @ToString.Exclude// exclude lazy attributes
     List<Roles> roles = new ArrayList<>();
 
     /*helper meothods to both sides of association in synce*/
-    public void addUser(Roles roles){
+    public void addRoles(Roles roles){
         this.roles.add(roles);
         roles.setUser(this);
 
