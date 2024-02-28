@@ -1,5 +1,6 @@
 package com.funda.registeraccount.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.funda.registeraccount.dto.UserDTO;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -17,13 +18,15 @@ import javax.persistence.*;
 public class Roles {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    String id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    Long id;
     String name;
     String description;
 
-    @ToString.Exclude
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude@JsonBackReference
     User user;
 }
