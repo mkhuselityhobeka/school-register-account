@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
+;import javax.transaction.Transactional;
 
 @Repository
 public interface UserReposotory extends JpaRepository<User,Long>{
@@ -18,6 +18,8 @@ public interface UserReposotory extends JpaRepository<User,Long>{
      * @param status
      * @return
      */
+
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("Update User u SET u.status = :status WHERE u.id = :id")
