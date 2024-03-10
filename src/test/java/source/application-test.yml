@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class: rg.testcontainers.jdbc.ContainerDatabaseDriver
+  jpa:
+    hibernate:
+      ddl-auto: create
